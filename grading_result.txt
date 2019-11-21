@@ -1,0 +1,137 @@
+Your overall score for this assignment is 0.99 out of 10.00
+
+
+The code you submitted did not pass all of our tests: your submission achieved a score of
+0.00 out of 9.00 in our tests.
+
+In order to find bugs in your code, we advise to perform the following steps:
+ - Take a close look at the test output that you can find below: it should point you to
+   the part of your code that has bugs.
+ - Run the tests that we provide with the handout on your code.
+ - The tests we provide do not test your code in depth: they are very incomplete. In order
+   to test more aspects of your code, write your own unit tests.
+ - Take another very careful look at the assignment description. Try to find out if you
+   misunderstood parts of it. While reading through the assignment, write more tests.
+
+Below you can find a short feedback for every individual test that failed.
+
+Our automated style checker tool found issues in your code with respect to coding style: it
+computed a style score of 0.99 out of 1.00 for your submission. See below for detailed feedback.
+
+======== LOG OF FAILED TESTS ========
+Your solution achieved a testing score of 0 out of 90.
+
+Below you can see a short feedback for every test that failed,
+indicating the reason for the test failure and how many points
+you lost for each individual test.
+
+Tests that were aborted took too long too complete or crashed the
+JVM. Such crashes can arise due to infinite non-terminating
+loops or recursion (StackOverflowException) or excessive memory
+consumption (OutOfMemoryException).
+
+
+
+[Test Description] [#1 - Data extraction] compute yearly average by location
+[Lost Points] 5
+
+[Test Description] [#1 - Data extraction] locationYearlyAverageRecords should be able to process 1 million records
+[Lost Points] 5
+
+[Test Description] [#1 - Data extraction] weather stations are identified by the composite (STN, WBAN)
+[Lost Points] 3
+
+[Test Description] [#1 - Data extraction] temperatures are located
+[Lost Points] 5
+
+[Test Description] [#1 - Data extraction] stations with no location are ignored
+[Lost Points] 3
+
+
+
+[Test Description] [#2 - Raw data display] basic color interpolation
+[Lost Points] 1
+
+[Test Description] [#2 - Raw data display] predicted temperature at location z should be closer to known temperature at location x than to known temperature at location y, if z is closer (in distance) to x than y, and vice versa
+[Lost Points] 10
+
+[Test Description] [#2 - Raw data display] exceeding the greatest value of a color scale should return the color associated with the greatest value
+[Lost Points] 2
+
+[Test Description] [#2 - Raw data display] visualize
+[Lost Points] 5
+
+[Test Description] [#2 - Raw data display] color interpolation
+[Lost Points] 5
+
+
+
+[Test Description] [#3 - Interactive visualization] generateTiles covers all the expected tiles
+[Lost Points] 3
+
+[Test Description] [#3 - Interactive visualization] tileLocation must return the corresponding latitude and longitude, given some Web Mercator coordinates
+[Lost Points] 2
+
+[Test Description] [#3 - Interactive visualization] tile pixel colors must be consistent with the given located temperatures and color scale
+[Lost Points] 5
+
+[Test Description] [#3 - Interactive visualization] tile must be consistent across zoom levels
+[Lost Points] 3
+
+
+
+[Test Description] [#4 - Data manipulation] deviation must return a grid whose predicted temperatures are the deviations of the known temperatures compared to the normals
+[Lost Points] 4
+
+[Test Description] [#4 - Data manipulation] average must return a grid whose predicted temperatures are the average of the known temperatures
+[Lost Points] 4
+
+[Test Description] [#4 - Data manipulation] makeGrid must return a grid whose predicted temperatures are consistent with the known temperatures
+[Lost Points] 5
+
+
+
+[Test Description] [#5 - Value-added information visualization] grid visualization
+[Lost Points] 5
+
+[Test Description] [#5 - Value-added information visualization] bilinear interpolation
+[Lost Points] 5
+
+
+
+[Test Description] [#6 - Interactive user interface] yearBounds must be consistent with the selected layer
+[Lost Points] 2
+
+[Test Description] [#6 - Interactive user interface] layerUrlPattern must be consistent with the selected layer id and the selected year
+[Lost Points] 2
+
+[Test Description] [#6 - Interactive user interface] yearSelection must never be out of the selected layer bounds
+[Lost Points] 3
+
+[Test Description] [#6 - Interactive user interface] availableLayers must contain temperatures and deviations
+[Lost Points] 1
+
+[Test Description] [#6 - Interactive user interface] caption must be consistent with the selected layer and the selected year
+[Lost Points] 2
+
+======== TESTING ENVIRONMENT ========
+Limits: memory: 1600m,  total time: 850s,  per test case time: 240s
+
+======== CODING STYLE ISSUES ========
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Interaction.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Manipulation.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/models.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Extraction.scala...
+  1. warning at line 58 character 4:
+     Avoid mutable local variables
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/package.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Main.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Grading.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Interaction2.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Signal.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Visualization.scala... OK!
+Checking file /grader/repository/courses/capstone/src/main/scala/observatory/Visualization2.scala... OK!
+
+Processed 11  file(s)
+Found 0 errors
+Found 1 warnings

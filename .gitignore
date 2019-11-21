@@ -56,3 +56,4 @@ project/boot/
 project/plugins/project/
 src_managed/
 target/
+/src/main/resources/data/
