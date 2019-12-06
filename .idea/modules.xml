@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ZeppelinRemoteNotebooks/ZeppelinInstance_Zeppelin_connection@ZeppelinConnections@2966742962627858702.iml" filepath="$PROJECT_DIR$/.idea/ZeppelinRemoteNotebooks/ZeppelinInstance_Zeppelin_connection@ZeppelinConnections@2966742962627858702.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/capstone-observatory.iml" filepath="$PROJECT_DIR$/.idea/modules/capstone-observatory.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/capstone-observatory-build.iml" filepath="$PROJECT_DIR$/.idea/modules/capstone-observatory-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/capstoneUI.iml" filepath="$PROJECT_DIR$/.idea/modules/capstoneUI.iml" />

@@ -19,7 +19,7 @@
     </profile>
     <profile name="sbt 3" modules="capstoneUI">
       <plugins>
-        <plugin path="$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scala-js/scalajs-compiler_2.11.8/0.6.11/scalajs-compiler_2.11.8-0.6.11.jar" />
+        <plugin path="$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/org/scala-js/scalajs-compiler_2.11.8/0.6.11/scalajs-compiler_2.11.8-0.6.11.jar" />
       </plugins>
     </profile>
   </component>

@@ -96,7 +96,6 @@
   <root>
     <level value="WARN"/>
     <appender-ref ref="stdout"/>
-    <!--    <appender-ref ref="fout"/>-->
   </root>
 
 </log4j:configuration>

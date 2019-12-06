@@ -1,13 +1,11 @@
 package observatory
 
 import java.nio.file.Paths
-import java.time.{LocalDate}
+import java.time.LocalDate
 
-import observatory.Extraction.TEMPERATURE_COLUMNS
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql._
-import org.apache.spark.sql.catalyst.expressions.Month
 import org.apache.spark.sql.types._
 
 /**
@@ -15,8 +13,9 @@ import org.apache.spark.sql.types._
   */
 object Extraction {
 
+  Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
+
   import org.apache.spark.sql.SparkSession
-  import org.apache.spark.sql.functions._
 
   private val STN_ID_COL = "STN_identifier"
   private val WBAN_ID_COL = "WBAN_identifier"

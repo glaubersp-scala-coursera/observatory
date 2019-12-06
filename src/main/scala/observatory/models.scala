@@ -5,7 +5,14 @@ package observatory
   * @param lat Degrees of latitude, -90 ≤ lat ≤ 90
   * @param lon Degrees of longitude, -180 ≤ lon ≤ 180
   */
-case class Location(lat: Double, lon: Double)
+case class Location(lat: Double, lon: Double) {
+  override def canEqual(that: Any): Boolean =
+    (lat == (that.asInstanceOf[Location]).lat) &&
+      (lon == (that.asInstanceOf[Location].lon))
+}
+object Location {
+  def empty: Location = new Location(0.0, 0.0)
+}
 
 /**
   * Introduced in Week 3. Represents a tiled web map tile.
@@ -40,3 +47,7 @@ case class CellPoint(x: Double, y: Double)
   */
 case class Color(red: Int, green: Int, blue: Int)
 
+case class Point(x: Double, y: Double) extends Ordered[Point] {
+  import scala.math.Ordered.orderingToOrdered
+  def compare(that: Point): Int = (this.x, this.y).compare((that.x, that.y))
+}
