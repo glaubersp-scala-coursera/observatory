@@ -13,10 +13,7 @@ object Interaction {
     * @param tile Tile coordinates
     * @return The latitude and longitude of the top-left corner of the tile, as per http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Scala
     */
-  def tileLocation(tile: Tile): Location = new Location(
-    Math.toDegrees(Math.atan(Math.sinh(Math.PI * (1.0 - 2.0 * tile.y.toDouble / (1 << tile.zoom))))),
-    tile.x.toDouble / (1 << tile.zoom) * 360.0 - 180.0
-  )
+  def tileLocation(tile: Tile): Location = tile.toLocation
 
   /**
     * This method returns a 256×256 image showing the given temperatures, using the given color
@@ -36,7 +33,7 @@ object Interaction {
   def tile(temperatures: Iterable[(Location, Temperature)],
            colors: Iterable[(Temperature, Color)],
            tile: Tile): Image = {
-    val zoom = tile.zoom + 1
+    val zoom = tile.zoom
     val minX = tile.x - 128
     val minY = tile.y - 128
 

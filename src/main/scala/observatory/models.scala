@@ -1,7 +1,12 @@
 package observatory
 
+import java.net.URI
+
+import scala.math.{Pi, atan, sinh, toDegrees}
+
 /**
   * Introduced in Week 1. Represents a location on the globe.
+  *
   * @param lat Degrees of latitude, -90 ≤ lat ≤ 90
   * @param lon Degrees of longitude, -180 ≤ lon ≤ 180
   */
@@ -22,7 +27,25 @@ object Location {
   * @param y Y coordinate of the tile
   * @param zoom Zoom level, 0 ≤ zoom ≤ 19
   */
-case class Tile(x: Int, y: Int, zoom: Int)
+case class Tile(x: Int, y: Int, zoom: Int) {
+
+  /**
+    * Get the Location corresponding to this Tile.
+    *
+    * @return the Location corresponding to this Tile.
+    */
+  def toLocation: Location = Location(
+    toDegrees(atan(sinh(Pi * (1.0 - 2.0 * y.toDouble / (1 << zoom))))),
+    x.toDouble / (1 << zoom) * 360.0 - 180.0
+  )
+
+  /**
+    * Get OpenStreetMap URI for this Tile
+    *
+    * @return OpenStreetMap URI for this Tile
+    */
+  def getURI = new URI(s"http://tile.openstreetmap.org/$zoom/$x/$y.png")
+}
 
 /**
   * Introduced in Week 4. Represents a point on a grid composed of
