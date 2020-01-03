@@ -1,14 +1,23 @@
 package observatory
 
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.junit.Assert._
 
-@RunWith(classOf[JUnitRunner])
 class CapstoneSuite
-  extends ExtractionTest
+    extends ExtractionTest
     with VisualizationTest
     with InteractionTest
     with ManipulationTest
     with Visualization2Test
     with Interaction2Test
 
+trait MilestoneSuite {
+
+  def namedMilestoneTest(milestoneName: String, level: Int)(block: => Unit): Unit =
+    if (Grading.milestone >= level) {
+      block
+    } else {
+      fail(
+        s"Milestone $level ($milestoneName) is disabled. To enable it, set the 'Grading.milestone' value to '$level'.")
+    }
+
+}

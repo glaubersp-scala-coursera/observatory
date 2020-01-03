@@ -10,7 +10,7 @@ import scala.language.postfixOps
 /**
   * 2nd milestone: basic visualization
   */
-object Visualization {
+object Visualization extends VisualizationInterface {
 
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
 
@@ -31,7 +31,7 @@ object Visualization {
     * To approximate the distance between two locations, we suggest you to use the great-circle distance formula.
     *
     * @param temperatures Known temperatures: pairs containing a location and the temperature at this location
-    * @param location     Location where to predict the temperature
+    * @param location Location where to predict the temperature
     * @return The predicted temperature at `location`
     */
   def predictTemperature(temperatures: Iterable[(Location, Temperature)], location: Location): Temperature = {
@@ -92,7 +92,7 @@ object Visualization {
     * Note that the given points are not sorted in a particular order.
     *
     * @param points Pairs containing a value and its associated color
-    * @param value  The value to interpolate
+    * @param value The value to interpolate
     * @return The color that corresponds to `value`, according to the color scale defined by `points`
     */
   def interpolateColor(points: Iterable[(Temperature, Color)], value: Temperature): Color = {
@@ -128,7 +128,7 @@ object Visualization {
 
   /**
     * @param temperatures Known temperatures
-    * @param colors       Color scale
+    * @param colors Color scale
     * @return A 360×180 image where each pixel shows the predicted temperature at its location
     */
   def visualize(temperatures: Iterable[(Location, Temperature)], colors: Iterable[(Temperature, Color)]): Image = {

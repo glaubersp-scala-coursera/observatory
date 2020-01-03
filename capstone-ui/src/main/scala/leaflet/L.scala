@@ -4,9 +4,9 @@ import org.scalajs.dom.Element
 
 import scala.annotation.meta.field
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSExport, JSName}
+import scala.scalajs.js.annotation.{JSExport, JSGlobal}
 
-@JSName("L")
+@JSGlobal("L")
 @js.native
 object L extends js.Object {
 

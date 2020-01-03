@@ -1,29 +1,30 @@
 package observatory
 
-import java.nio.file.Paths
 import java.time.LocalDate
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql._
 import org.apache.spark.sql.types._
+import org.apache.spark.sql.{DataFrame, Row}
+
+import scala.io.Source
 
 /**
   * 1st milestone: data extraction
   */
-object Extraction {
+object Extraction extends ExtractionInterface {
 
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
 
   import org.apache.spark.sql.SparkSession
 
-  private val STN_ID_COL = "STN_identifier"
-  private val WBAN_ID_COL = "WBAN_identifier"
-  private var LATITUDE_COL: String = "Latitude"
-  private var LONGITUDE_COL: String = "Longitude"
-  private var MONTH_COL: String = "Month"
-  private var DAY_COL: String = "Day"
-  private val TEMPERATURE_COL = "Temperature"
+  private val STN_ID_COL: String = "STN_identifier"
+  private val WBAN_ID_COL: String = "WBAN_identifier"
+  private val LATITUDE_COL: String = "Latitude"
+  private val LONGITUDE_COL: String = "Longitude"
+  private val MONTH_COL: String = "Month"
+  private val DAY_COL: String = "Day"
+  private val TEMPERATURE_COL: String = "Temperature"
 
   val STATION_COLUMNS: IndexedSeq[String] = IndexedSeq(STN_ID_COL, WBAN_ID_COL, LATITUDE_COL, LONGITUDE_COL)
   val STATION_HEADERS: Map[String, DataType] =
@@ -54,7 +55,7 @@ object Extraction {
   import spark.implicits._
 
   private def parseRow(x: String): List[String] = {
-    var string = if (x.endsWith(",")) { s"${x}0" } else x
+    val string = if (x.endsWith(",")) { s"${x}0" } else x
     string.split(",").map(x => if ("".equalsIgnoreCase(x)) "0" else x).to[List]
   }
 
@@ -64,7 +65,8 @@ object Extraction {
   }
 
   private def readStations(resource: String): DataFrame = {
-    val rdd = spark.sparkContext.textFile(fsPath(resource))
+    val rdd: RDD[String] = getRDDFromResource(resource)
+
     // Compute the schema based on the first line of the CSV file
     val schema = dfSchema(STATION_COLUMNS, STATION_HEADERS)
     val data = rdd
@@ -87,13 +89,13 @@ object Extraction {
     } ::
       line(2).toInt ::
       line(3).toInt ::
-//      line(4).toDouble :: Nil
+      //      line(4).toDouble :: Nil
       convertTemperature(line(4).toDouble) :: Nil
     Row(values: _*)
   }
 
   def readTemperatures(resource: String): DataFrame = {
-    val rdd = spark.sparkContext.textFile(fsPath(resource))
+    val rdd = getRDDFromResource(resource)
     // Compute the schema based on the first line of the CSV file
     val schema = dfSchema(TEMPERATURE_COLUMNS, TEMPERATURE_HEADERS)
     val data = rdd
@@ -103,9 +105,15 @@ object Extraction {
     dataFrame
   }
 
-  /** @return The filesystem path of the given resource */
-  def fsPath(resource: String): String =
-    Paths.get(getClass.getResource(resource).toURI).toString
+  /**
+    * Load the resource from filesystem as RDD[String]
+    * @param resource the resource path
+    * @return the resource content as RDD[String]
+    */
+  def getRDDFromResource(resource: String): RDD[String] = {
+    val fileStream = Source.getClass.getResourceAsStream(resource)
+    spark.sparkContext.makeRDD(Source.fromInputStream(fileStream).getLines().toList)
+  }
 
   /** @return The schema of the DataFrame, assuming that the first given column has type String and all the others
     *         have type Double. None of the fields are nullable.
@@ -129,11 +137,12 @@ object Extraction {
     * @param year             Year number
     * @param stationsFile     Path of the stations resource file to use (e.g. "/stations.csv")
     * @param temperaturesFile Path of the temperatures resource file to use (e.g. "/1975.csv")
-    * @return A sequence containing triplets (date, location, TEMPERATURE_COL)
+    * @return A sequence containing triplets (date, location, temperature)
     */
   def locateTemperatures(year: Year,
                          stationsFile: String,
                          temperaturesFile: String): Iterable[(LocalDate, Location, Temperature)] = {
+
     val stationsDF: DataFrame = readStations(stationsFile).persist()
     val tempDF: DataFrame = readTemperatures(temperaturesFile).persist()
 
@@ -144,22 +153,20 @@ object Extraction {
       .filter($"Latitude" =!= "0" && $"Longitude" =!= "0")
       .collect()
       .map(
-        row =>
-          (LocalDate.of(year, row(4).asInstanceOf[Int], row(5).asInstanceOf[Int]),
-           Location(row(2).asInstanceOf[Double], row(3).asInstanceOf[Double]),
-           row(6).asInstanceOf[Double]))
+        (row: Row) =>
+          (LocalDate.of(year, row.getInt(4), row.getInt(5)),
+           Location(row.getDouble(2), row.getDouble(3)),
+           row.getDouble(6)))
     result
   }
 
   /**
     * This method should return the average temperature at each location, over a year.
-    *
-    * @param records A sequence containing triplets (date, location, TEMPERATURE_COL)
-    * @return A sequence containing, for each location, the average TEMPERATURE_COL over the year.
+    * @param records A sequence containing triplets (date, location, temperature)
+    * @return A sequence containing, for each location, the average temperature over the year.
     */
   def locationYearlyAverageRecords(
-      records: Iterable[(LocalDate, Location, Temperature)]
-  ): Iterable[(Location, Temperature)] = {
+      records: Iterable[(LocalDate, Location, Temperature)]): Iterable[(Location, Temperature)] = {
     sparkAverageRecords(spark.sparkContext.parallelize(records.toSeq)).collect().toSeq
   }
 
@@ -176,5 +183,4 @@ object Extraction {
       .reduceByKey((p1, p2) => (p1._1 + p2._1, p1._2 + p2._2))
       .mapValues { case (temp, count) => temp / count }
   }
-
 }

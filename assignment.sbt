@@ -1,10 +1,9 @@
-course := "capstone"
-assignment := "observatory"
+// Student tasks (i.e. submit, packageSubmission)
+enablePlugins(StudentTasks)
 
-assignmentInfo := AssignmentInfo(
+courseraId := ch.epfl.lamp.CourseraId(
   key = "XdlPsYjPEeeJEQ6TH2unjA",
   itemId = "ekWDs",
   premiumItemId = Some("NXfKi"),
-  partId = "RIjrU",
-  styleSheet = Some((_: File) / "scalastyle" / "observatory.xml")
+  partId = "RIjrU"
 )

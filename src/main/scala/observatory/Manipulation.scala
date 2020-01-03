@@ -3,7 +3,7 @@ package observatory
 /**
   * 4th milestone: value-added information
   */
-object Manipulation {
+object Manipulation extends ManipulationInterface {
 
   /**
     * @param temperatures Known temperatures

@@ -1,10 +1,6 @@
 package observatory
 
-import org.scalatest.FunSuite
-import org.scalatest.prop.Checkers
-
-import scala.collection.concurrent.TrieMap
-
-trait InteractionTest extends FunSuite with Checkers {
+trait InteractionTest extends MilestoneSuite {
+  private val milestoneTest = namedMilestoneTest("interactive visualization", 3) _
 
 }

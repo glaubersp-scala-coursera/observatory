@@ -2,10 +2,10 @@ val capstoneUI =
   project.in(file("capstone-ui"))
     .enablePlugins(ScalaJSPlugin)
     .settings(
-      scalaVersion := "2.11.8",
+      scalaVersion := "2.13.0",
       // Add the sources of the main project
       unmanagedSources in Compile ++= {
-        val rootSourceDirectory = (scalaSource in (root, Compile)).value / "observatory"
+        val rootSourceDirectory = baseDirectory.value / ".." / "src" / "main" / "scala" / "observatory"
         Seq(
           rootSourceDirectory / "Interaction2.scala",
           rootSourceDirectory / "Signal.scala",
@@ -14,8 +14,8 @@ val capstoneUI =
         )
       },
       libraryDependencies ++= Seq(
-        "org.scala-js" %%% "scalajs-dom" % "0.9.1",
-        "com.lihaoyi" %%% "scalatags" % "0.6.0"
+        "org.scala-js" %%% "scalajs-dom" % "0.9.7",
+        "com.lihaoyi" %%% "scalatags" % "0.7.0"
       ),
-      persistLauncher := true
+      scalaJSUseMainModuleInitializer := true
     )

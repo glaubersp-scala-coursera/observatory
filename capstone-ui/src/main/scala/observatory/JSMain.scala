@@ -12,9 +12,9 @@ import scalatags.JsDom.{Cap, Aggregate, tags, attrs, styles}
 object Implicits extends Cap with Aggregate with DataConverters with LowPriorityImplicits
 import Implicits._
 
-object JSMain extends js.JSApp {
+object JSMain {
 
-  def main(): Unit = {
+  def main(args: Array[String]): Unit = {
     val availableLayers = Interaction2.availableLayers
     val (radioButtonElement, selectedLayer) = makeRadioButtons(availableLayers)
     val (sliderElement, selectedYear) = makeSlider(selectedLayer)

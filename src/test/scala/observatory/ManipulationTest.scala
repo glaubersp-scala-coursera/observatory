@@ -1,8 +1,8 @@
 package observatory
 
-import org.scalatest.FunSuite
-import org.scalatest.prop.Checkers
+trait ManipulationTest extends MilestoneSuite {
+  private val milestoneTest = namedMilestoneTest("data manipulation", 4) _
 
-trait ManipulationTest extends FunSuite with Checkers {
+  // Implement tests for methods of the `Manipulation` object
 
 }

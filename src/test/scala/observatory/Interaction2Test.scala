@@ -1,8 +1,8 @@
 package observatory
 
-import org.scalatest.FunSuite
-import org.scalatest.prop.Checkers
+trait Interaction2Test extends MilestoneSuite {
+  private val milestoneTest = namedMilestoneTest("interactive user interface", 6) _
 
-trait Interaction2Test extends FunSuite with Checkers {
+  // Implement tests for methods of the `Interaction2` object
 
 }

@@ -2,13 +2,12 @@ package observatory
 
 import java.time.LocalDate
 
-import org.junit.runner.RunWith
-import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+trait ExtractionTest extends MilestoneSuite {
+  private val milestoneTest = namedMilestoneTest("data extraction", 1) _
 
-trait ExtractionTest extends FunSuite {
+  // Implement tests for the methods of the `Extraction` object
 
-  test("locateTemperatures should work as expected for 2015's data") {
+  namedMilestoneTest("locateTemperatures should work as expected for 2015's data", 1) {
     val resultTemp: Seq[(LocalDate, Location, Temperature)] = Seq(
       (LocalDate.of(2015, 1, 25), Location(43.272, -124.319), 7.5),
       (LocalDate.of(2015, 2, 21), Location(43.272, -124.319), 8.0),
@@ -21,7 +20,7 @@ trait ExtractionTest extends FunSuite {
     assert(op.count(p => resultTemp.contains(p)) == resultTemp.size)
   }
 
-  test("locationYearlyAverageRecords should work as expected for 2015's data") {
+  namedMilestoneTest("locationYearlyAverageRecords should work as expected for 2015's data", 1) {
     val resultAvgTemp: Seq[(Location, Temperature)] = Seq(
       (Location(13.067, 80.2), 26.6875),
       (Location(49.467, 20.05), 18.5),

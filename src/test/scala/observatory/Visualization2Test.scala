@@ -1,9 +1,11 @@
 package observatory
 
-import org.scalatest.FunSuite
-import org.scalatest.prop.Checkers
+import org.junit.Test
 
-trait Visualization2Test extends FunSuite with Checkers {
+trait Visualization2Test extends MilestoneSuite {
+  private val milestoneTest = namedMilestoneTest("value-added information visualization", 5) _
+
+  // Implement tests for methods of the `Visualization2` object
 
 
 }

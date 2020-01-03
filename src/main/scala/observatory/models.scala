@@ -6,14 +6,16 @@ import scala.math.{Pi, atan, sinh, toDegrees}
 
 /**
   * Introduced in Week 1. Represents a location on the globe.
-  *
   * @param lat Degrees of latitude, -90 ≤ lat ≤ 90
   * @param lon Degrees of longitude, -180 ≤ lon ≤ 180
   */
 case class Location(lat: Double, lon: Double) {
   override def canEqual(that: Any): Boolean =
-    (lat == (that.asInstanceOf[Location]).lat) &&
-      (lon == (that.asInstanceOf[Location].lon))
+    that match {
+      case thatVal: Location =>
+        (lat == thatVal.lat) && (lon == thatVal.lon)
+    }
+
 }
 object Location {
   def empty: Location = new Location(0.0, 0.0)

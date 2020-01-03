@@ -3,7 +3,7 @@ package observatory
 /**
   * 6th (and last) milestone: user interface polishing
   */
-object Interaction2 {
+object Interaction2 extends Interaction2Interface {
 
   /**
     * @return The available layers of the application
@@ -50,6 +50,16 @@ object Interaction2 {
     ???
   }
 
+}
+
+// Interface used by the grading infrastructure. Do not change signatures
+// or your submission will fail with a NoSuchMethodError.
+trait Interaction2Interface {
+  def availableLayers: Seq[Layer]
+  def yearBounds(selectedLayer: Signal[Layer]): Signal[Range]
+  def yearSelection(selectedLayer: Signal[Layer], sliderValue: Signal[Year]): Signal[Year]
+  def layerUrlPattern(selectedLayer: Signal[Layer], selectedYear: Signal[Year]): Signal[String]
+  def caption(selectedLayer: Signal[Layer], selectedYear: Signal[Year]): Signal[String]
 }
 
 sealed abstract class LayerName(val id: String)

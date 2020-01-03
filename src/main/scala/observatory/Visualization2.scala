@@ -5,7 +5,7 @@ import com.sksamuel.scrimage.{Image, Pixel}
 /**
   * 5th milestone: value-added information visualization
   */
-object Visualization2 {
+object Visualization2 extends Visualization2Interface {
 
   /**
     * @param point (x, y) coordinates of a point in the grid cell
